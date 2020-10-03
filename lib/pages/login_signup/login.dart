@@ -17,6 +17,13 @@ class _LoginState extends State<Login> {
   bool _obscureText = true;
   DateTime currentBackPressTime;
 
+  bool _passwordValidate = false;
+  bool _usernameValidate = false;
+
+  final TextEditingController _usernameController = new TextEditingController();
+
+  final TextEditingController _passwordController = new TextEditingController();
+
   // Toggles the password show status
   void _viewPassword() {
     setState(() {
@@ -66,8 +73,11 @@ class _LoginState extends State<Login> {
               child: Column(
                 children: <Widget>[
                   TextField(
+                    controller: _usernameController,
                     decoration: InputDecoration(
                       hintText: 'Username',
+                      errorText:
+                          _usernameValidate ? 'Username Can\'t Be Empty' : null,
                       hintStyle: TextStyle(
                         fontFamily: 'Signika Negative',
                         color: Colors.grey[500],
@@ -78,8 +88,11 @@ class _LoginState extends State<Login> {
                   ),
                   SizedBox(height: 10.0),
                   TextField(
+                    controller: _passwordController,
                     decoration: InputDecoration(
                       hintText: 'Password',
+                      errorText:
+                          _passwordValidate ? 'Password Can\'t Be Empty' : null,
                       hintStyle: TextStyle(
                         fontFamily: 'Signika Negative',
                         color: Colors.grey[500],
@@ -96,7 +109,12 @@ class _LoginState extends State<Login> {
                   SizedBox(height: 40.0),
                   InkWell(
                     onTap: () {
-                      Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: SignUp()));
+                      startLogin();
+                      // Navigator.push(
+                      //     context,
+                      //     PageTransition(
+                      //         type: PageTransitionType.rightToLeft,
+                      //         child: SignUp()));
                     },
                     child: Container(
                       padding: EdgeInsets.all(15.0),
@@ -118,7 +136,11 @@ class _LoginState extends State<Login> {
                   SizedBox(height: 15.0),
                   InkWell(
                     onTap: () {
-                      Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: SignUp()));
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.rightToLeft,
+                              child: SignUp()));
                     },
                     child: Container(
                       padding: EdgeInsets.all(5.0),
@@ -139,7 +161,11 @@ class _LoginState extends State<Login> {
                   ),
                   InkWell(
                     onTap: () {
-                      Navigator.push(context, PageTransition(type: PageTransitionType.rightToLeft, child: ForgotPassword()));
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.rightToLeft,
+                              child: ForgotPassword()));
                     },
                     child: Container(
                       padding: EdgeInsets.all(5.0),
@@ -159,71 +185,6 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   SizedBox(height: 30.0),
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      padding: EdgeInsets.all(15.0),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        color: fbBgColor,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Image.asset(
-                            'assets/facebook.png',
-                            height: 25.0,
-                            fit: BoxFit.fitHeight,
-                          ),
-                          SizedBox(width: 10.0),
-                          Text(
-                            'Log in with Facebook',
-                            style: TextStyle(
-                              fontFamily: 'Signika Negative',
-                              fontSize: 18.0,
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(height: 20.0),
-                  InkWell(
-                    onTap: () {},
-                    child: Container(
-                      padding: EdgeInsets.all(15.0),
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(5.0),
-                        color: Colors.white,
-                      ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Image.asset(
-                            'assets/google.png',
-                            height: 25.0,
-                            fit: BoxFit.fitHeight,
-                          ),
-                          SizedBox(width: 10.0),
-                          Text(
-                            'Log in with Google',
-                            style: TextStyle(
-                              fontFamily: 'Signika Negative',
-                              fontSize: 18.0,
-                              color: Colors.grey[500],
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),
@@ -253,6 +214,50 @@ class _LoginState extends State<Login> {
       return Future.value(false);
     }
     exit(0);
-    return Future.value(true);
+  }
+
+  //validation
+  validate() {
+    setState(() {
+      _usernameController.text.isEmpty
+          ? _usernameValidate = true
+          : _usernameValidate = false;
+      _passwordController.text.isEmpty
+          ? _passwordValidate = true
+          : _passwordValidate = false;
+    });
+  }
+
+  //loading
+  void _onLoading(bool choice) {
+    choice
+        ? showDialog(
+            context: context,
+            barrierDismissible: false,
+            builder: (_) => new Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                new CircularProgressIndicator(
+                  backgroundColor: Color(0xff00d2ff),
+                  valueColor: new AlwaysStoppedAnimation<Color>(Colors.white),
+                ),
+              ],
+            ),
+            // ignore: unnecessary_statements
+          )
+        : null;
+  }
+
+  //LOGIN
+  Future startLogin() async {
+    validate();
+    if (_usernameValidate == false && _passwordValidate == false) {
+      var username = _usernameController.text;
+      var password = _passwordController.text;
+
+      print('$username and $password');
+
+      _onLoading(true);
+    }
   }
 }

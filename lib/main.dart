@@ -19,8 +19,8 @@ class MyApp extends StatelessWidget {
       title: 'Learn Pro',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.orange,
-        primaryColor: const Color(0xFFFFC226),
+        primarySwatch: Colors.blue,
+        primaryColor: const Color(0xFF02b3e4),
         cursorColor: Colors.black,
       ),
       builder: (context, child) {
