@@ -1,0 +1,41 @@
+[
+    {
+        "courseId" : 1,
+        "image" : "assets/new_course/new_course_1.png",
+        "courseName" : "Design Instruments for Communication",
+        "courseCategory" : "Business & Marketing",
+        "courseRating" : "4.0",
+        "courseNumberOfRating" : "5",
+        "coursePrice" : "59"
+    },
+
+    {
+        "courseId" : 2,
+        "image" : "assets/new_course/new_course_2.png",
+        "courseName" : "Weight Training Courses with Any Di",
+        "courseCategory" : "Health & Fitness",
+        "courseRating" : "4.5",
+        "courseNumberOfRating" : "7",
+        "coursePrice" : "64"
+    },
+
+    {
+        "courseId" : 3,
+        "image" : "assets/new_course/new_course_3.png",
+        "courseName" : "Console Development Basics with Unity",
+        "courseCategory" : "Computer Science",
+        "courseRating" : "4.0",
+        "courseNumberOfRating" : "4",
+        "coursePrice" : "49"
+    },
+
+    {
+        "courseId" : 4,
+        "image" : "assets/new_course/new_course_4.png",
+        "courseName" : "How to be a DJ? Make Electronic Music",
+        "courseCategory" : "Electronic",
+        "courseRating" : "4.8",
+        "courseNumberOfRating" : "9",
+        "coursePrice" : "59"
+    }
+]

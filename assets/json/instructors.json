@@ -1,0 +1,46 @@
+[
+    {
+        "instructorId" : 1,
+        "image" : "assets/user_profile/user_1.jpg",
+        "instructorName" : "Don Hart",
+        "instructorRole" : "Teacher",
+        "instructorRating" : "4.5",
+        "instructorNumberOfRating" : "7"
+    },
+
+    {
+        "instructorId" : 2,
+        "image" : "assets/user_profile/user_3.jpg",
+        "instructorName" : "Dawn Morales",
+        "instructorRole" : "Marketing Consultant",
+        "instructorRating" : "4.9",
+        "instructorNumberOfRating" : "15"
+    },
+
+    {
+        "instructorId" : 3,
+        "image" : "assets/user_profile/user_4.jpg",
+        "instructorName" : "Allison Perry",
+        "instructorRole" : "C++ Expert",
+        "instructorRating" : "5.0",
+        "instructorNumberOfRating" : "131"
+    },
+
+    {
+        "instructorId" : 4,
+        "image" : "assets/user_profile/user_5.jpg",
+        "instructorName" : "Anita Ruiz",
+        "instructorRole" : "Fitness Instructor",
+        "instructorRating" : "5.0",
+        "instructorNumberOfRating" : "149"
+    },
+
+    {
+        "instructorId" : 5,
+        "image" : "assets/user_profile/user_8.jpg",
+        "instructorName" : "Bob Perez",
+        "instructorRole" : "Flutter Expert",
+        "instructorRating" : "5.0",
+        "instructorNumberOfRating" : "184"
+    }
+]
