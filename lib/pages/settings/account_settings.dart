@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:learn_pro/appTheme/appTheme.dart';
+import 'package:learn_pro/dataClass/apiVariables.dart';
 import 'package:learn_pro/pages/login_signup/login.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AccountSettings extends StatefulWidget {
   @override
@@ -8,8 +10,8 @@ class AccountSettings extends StatefulWidget {
 }
 
 class _AccountSettingsState extends State<AccountSettings> {
-  String number = '9603456878';
-  String email = 'test@abc.com';
+  String number = 'N/A';
+  String email = userData['email'];
   var phoneController = TextEditingController();
   var emailController = TextEditingController();
 
@@ -426,7 +428,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                       ),
                       InkWell(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>Login()));
+                          _logout();
                         },
                         child: Container(
                           width: (width / 3.5),
@@ -512,7 +514,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                 ),
                 SizedBox(height: 5.0),
                 Text(
-                  'Allison Perry',
+                  '${userData['first_name']} ${userData['last_name']}',
                   style: TextStyle(
                     fontSize: 20.0,
                     fontFamily: 'Signika Negative',
@@ -701,5 +703,20 @@ class _AccountSettingsState extends State<AccountSettings> {
     return Scaffold(
       body: nestedAppBar(),
     );
+  }
+
+  //Logout
+  _logout() async {
+    setState(() {
+      SharedPreferences.getInstance().then((prefs) {
+        prefs.setString('user_id', null);
+        prefs.setString('first_name', null);
+        prefs.setString('last_name', null);
+        prefs.setString('email', null);
+        prefs.setString('role', null);
+        prefs.setString('token', null);
+      });
+    });
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Login()));
   }
 }

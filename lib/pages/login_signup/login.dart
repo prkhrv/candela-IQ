@@ -1,11 +1,16 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:learn_pro/appTheme/appTheme.dart';
+import 'package:learn_pro/dataClass/apiVariables.dart';
+import 'package:learn_pro/pages/home/home.dart';
 import 'package:learn_pro/pages/login_signup/forgot_password.dart';
 import 'package:learn_pro/pages/login_signup/signup.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Login extends StatefulWidget {
   @override
@@ -17,10 +22,11 @@ class _LoginState extends State<Login> {
   bool _obscureText = true;
   DateTime currentBackPressTime;
 
+  // (false == 'All Checks Passed')
   bool _passwordValidate = false;
-  bool _usernameValidate = false;
+  bool _emailValidate = false;
 
-  final TextEditingController _usernameController = new TextEditingController();
+  final TextEditingController _emailController = new TextEditingController();
 
   final TextEditingController _passwordController = new TextEditingController();
 
@@ -73,11 +79,11 @@ class _LoginState extends State<Login> {
               child: Column(
                 children: <Widget>[
                   TextField(
-                    controller: _usernameController,
+                    controller: _emailController,
                     decoration: InputDecoration(
-                      hintText: 'Username',
+                      hintText: 'Email',
                       errorText:
-                          _usernameValidate ? 'Username Can\'t Be Empty' : null,
+                          _emailValidate ? 'Email Can\'t Be Empty' : null,
                       hintStyle: TextStyle(
                         fontFamily: 'Signika Negative',
                         color: Colors.grey[500],
@@ -217,11 +223,11 @@ class _LoginState extends State<Login> {
   }
 
   //validation
-  validate() {
+  void validate() {
     setState(() {
-      _usernameController.text.isEmpty
-          ? _usernameValidate = true
-          : _usernameValidate = false;
+      _emailController.text.isEmpty
+          ? _emailValidate = true
+          : _emailValidate = false;
       _passwordController.text.isEmpty
           ? _passwordValidate = true
           : _passwordValidate = false;
@@ -229,7 +235,7 @@ class _LoginState extends State<Login> {
   }
 
   //loading
-  void _onLoading(bool choice) {
+  void _onLoading(bool choice, String msg, Color clr) {
     choice
         ? showDialog(
             context: context,
@@ -245,19 +251,58 @@ class _LoginState extends State<Login> {
             ),
             // ignore: unnecessary_statements
           )
-        : null;
+        : Fluttertoast.showToast(
+            msg: msg,
+            toastLength: Toast.LENGTH_LONG,
+            gravity: ToastGravity.BOTTOM,
+            backgroundColor: clr,
+            timeInSecForIos: 2,
+            textColor: Colors.black,
+            fontSize: 16.0);
   }
 
   //LOGIN
   Future startLogin() async {
     validate();
-    if (_usernameValidate == false && _passwordValidate == false) {
-      var username = _usernameController.text;
+    if (_emailValidate == false && _passwordValidate == false) {
+      _onLoading(true, '', Colors.transparent);
+      var email = _emailController.text;
       var password = _passwordController.text;
+      var url = Uri.parse('$baseUrl/login');
 
-      print('$username and $password');
+      var request = http.MultipartRequest('POST', url)
+        ..fields['email'] = email
+        ..fields['password'] = password;
+      var response = await request.send();
+      final respStr = await response.stream.bytesToString();
+      final Map<String, dynamic> responseData = json.decode(respStr);
 
-      _onLoading(true);
+      if (response.statusCode == 200) {
+        setState(() {
+          token = responseData['token'];
+        });
+        _setData(responseData['user_data'], responseData['token']);
+        Navigator.of(context, rootNavigator: true).pop();
+
+        //Login Successfull
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => Home()));
+      } else if (response.statusCode == 400) {
+        Navigator.of(context, rootNavigator: true).pop();
+        _onLoading(false, responseData['message'], Colors.redAccent);
+      }
     }
+  }
+
+  //SET DATA
+  void _setData(data, token) async {
+    SharedPreferences.getInstance().then((prefs) {
+      prefs.setString('user_id', data['user_id']);
+      prefs.setString('first_name', data['first_name']);
+      prefs.setString('last_name', data['last_name']);
+      prefs.setString('email', data['email']);
+      prefs.setString('role', data['role']);
+      prefs.setString('token', token);
+    });
   }
 }

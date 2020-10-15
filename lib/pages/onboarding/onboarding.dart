@@ -31,9 +31,9 @@ class _OnBoardingState extends State<OnBoarding> {
 
   @override
   void initState() {
-    super.initState();
     mySLides = getSlides();
     controller = new PageController();
+    super.initState();
   }
 
   @override

@@ -44,14 +44,14 @@ class _HomeState extends State<Home> {
         elevation: 8,
         items: <BubbleBottomBarItem>[
           BubbleBottomBarItem(
-            backgroundColor: Colors.orange,
+            backgroundColor: Colors.blue,
             icon: Icon(
               Icons.home,
               color: Colors.black,
             ),
             activeIcon: Icon(
               Icons.home,
-              color: Colors.orange,
+              color: Colors.blue,
             ),
             title: Text(
               'Home',
@@ -59,14 +59,14 @@ class _HomeState extends State<Home> {
             ),
           ),
           BubbleBottomBarItem(
-            backgroundColor: Colors.orange,
+            backgroundColor: Colors.blue,
             icon: Icon(
               Icons.favorite_border,
               color: Colors.black,
             ),
             activeIcon: Icon(
               Icons.favorite_border,
-              color: Colors.orange,
+              color: Colors.blue,
             ),
             title: Text(
               'Wishlist',
@@ -74,14 +74,14 @@ class _HomeState extends State<Home> {
             ),
           ),
           BubbleBottomBarItem(
-            backgroundColor: Colors.orange,
+            backgroundColor: Colors.blue,
             icon: Icon(
               Icons.search,
               color: Colors.black,
             ),
             activeIcon: Icon(
               Icons.search,
-              color: Colors.orange,
+              color: Colors.blue,
             ),
             title: Text(
               'Search',
@@ -89,28 +89,28 @@ class _HomeState extends State<Home> {
             ),
           ),
           BubbleBottomBarItem(
-              backgroundColor: Colors.orange,
+              backgroundColor: Colors.blue,
               icon: Icon(
                 Icons.library_books,
                 color: Colors.black,
               ),
               activeIcon: Icon(
                 Icons.library_books,
-                color: Colors.orange,
+                color: Colors.blue,
               ),
               title: Text(
                 'My Course',
                 style: TextStyle(fontSize: 12.0),
               )),
           BubbleBottomBarItem(
-              backgroundColor: Colors.orange,
+              backgroundColor: Colors.blue,
               icon: Icon(
                 Icons.settings,
                 color: Colors.black,
               ),
               activeIcon: Icon(
                 Icons.settings,
-                color: Colors.orange,
+                color: Colors.blue,
               ),
               title: Text(
                 'Settings',
@@ -119,17 +119,17 @@ class _HomeState extends State<Home> {
         ],
       ),
       body: WillPopScope(
-            child: (currentIndex == 0)
-                ? HomeMain()
-                : (currentIndex == 1)
-                    ? Wishlist()
-                    : (currentIndex == 2)
+        child: (currentIndex == 0)
+            ? HomeMain()
+            : (currentIndex == 1)
+                ? Wishlist()
+                : (currentIndex == 2)
                     ? Search()
                     : (currentIndex == 3)
                         ? MyCourse()
                         : Settings(),
-            onWillPop: onWillPop,
-          ),
+        onWillPop: onWillPop,
+      ),
     );
   }
 
@@ -148,5 +148,4 @@ class _HomeState extends State<Home> {
     exit(0);
     return Future.value(true);
   }
-  
 }

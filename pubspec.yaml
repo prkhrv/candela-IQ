@@ -26,13 +26,13 @@ dependencies:
   badges: ^1.1.0
   http: ^0.12.0+2
   font_awesome_flutter: ^8.5.0
-  fluttertoast: ^3.1.3
+  fluttertoast:
   custom_radio: ^0.1.2
   flutter_rating_bar: ^3.0.0
   page_transition: "^1.1.5"
   flutter_spinkit: ^3.1.0
   fancy_on_boarding: ^1.6.0
-  shared_preferences: ^0.5.8
+  shared_preferences:
   provider: ^2.0.1
   bubble_bottom_bar: ^1.2.0
   flutter_slidable: "^0.5.4"
