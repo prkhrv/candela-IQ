@@ -303,6 +303,13 @@ class _LoginState extends State<Login> {
       prefs.setString('email', data['email']);
       prefs.setString('role', data['role']);
       prefs.setString('token', token);
+
+      //local data
+      userData['first_name'] = data['first_name'];
+      userData['email'] = data['email'];
+      userData['last_name'] = data['last_name'];
+      userData['role'] = data['role'];
+      userData['user_id'] = data['user_id'];
     });
   }
 }
