@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:learn_pro/dataClass/passDataToCoursePage.dart';
 import 'package:learn_pro/pages/course/course.dart';
+
 class NewCourse extends StatefulWidget {
   @override
   _NewCourseState createState() => _NewCourseState();
@@ -56,7 +57,7 @@ class _NewCourseState extends State<NewCourse> {
                                 MaterialPageRoute(
                                   builder: (context) => CoursePage(
                                     courseData: PassDataToCoursePage(
-                                      snapshot.data[index].courseId,
+                                      snapshot.data[index].courseId.toString(),
                                       snapshot.data[index].courseImage,
                                       snapshot.data[index].courseName,
                                       snapshot.data[index].courseCategory,
@@ -87,7 +88,8 @@ class _NewCourseState extends State<NewCourse> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Hero(
-                                    tag: Text('${snapshot.data[index].courseId}'),
+                                    tag: Text(
+                                        '${snapshot.data[index].courseId}'),
                                     child: Container(
                                       height: 150.0,
                                       width: 230.0,

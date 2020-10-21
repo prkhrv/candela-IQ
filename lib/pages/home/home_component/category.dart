@@ -1,90 +1,106 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:learn_pro/appTheme/appTheme.dart';
+import 'package:learn_pro/dataClass/apiVariables.dart';
 import 'package:learn_pro/dataClass/passDataToCoursePage.dart';
 import 'package:learn_pro/pages/course/course.dart';
+import 'package:http/http.dart' as http;
 
 class Category extends StatefulWidget {
   final String categoryName;
-  Category({Key key, @required this.categoryName}) : super(key: key);
+  final String id;
+  Category({Key key, @required this.categoryName, @required this.id})
+      : super(key: key);
   @override
   _CategoryState createState() => _CategoryState();
 }
 
 class _CategoryState extends State<Category> {
-  final categoryItemList = [
-    {
-      'id': 1,
-      'title': 'Design Instruments for Communication',
-      'image': 'assets/new_course/new_course_1.png',
-      'category': 'Demo Category',
-      'price': '59',
-      'courseRating': '4.0',
-      'numberOfRating': '5'
-    },
-    {
-      'id': 2,
-      'title': 'Weight Training Courses with Any Di',
-      'image': 'assets/new_course/new_course_2.png',
-      'category': 'Demo Category',
-      'price': '64',
-      'courseRating': '4.5',
-      'numberOfRating': '6'
-    },
-    {
-      'id': 3,
-      'title': 'How to be a DJ? Make Electronic Music',
-      'image': 'assets/new_course/new_course_4.png',
-      'category': 'Demo Category',
-      'price': '59',
-      'courseRating': '4.8',
-      'numberOfRating': '8'
-    },
-    {
-      'id': 4,
-      'title': 'Console Development Basics with Unity',
-      'image': 'assets/new_course/new_course_3.png',
-      'category': 'Demo Category',
-      'price': '64',
-      'courseRating': '4.0',
-      'numberOfRating': '15'
-    },
-    {
-      'id': 5,
-      'title': 'Design Instruments for Communication',
-      'image': 'assets/new_course/new_course_1.png',
-      'category': 'Demo Category',
-      'price': '59',
-      'courseRating': '4.0',
-      'numberOfRating': '3'
-    },
-    {
-      'id': 6,
-      'title': 'Weight Training Courses with Any Di',
-      'image': 'assets/new_course/new_course_2.png',
-      'category': 'Demo Category',
-      'price': '64',
-      'courseRating': '4.5',
-      'numberOfRating': '2'
-    },
-    {
-      'id': 7,
-      'title': 'How to be a DJ? Make Electronic Music',
-      'image': 'assets/new_course/new_course_4.png',
-      'category': 'Demo Category',
-      'price': '59',
-      'courseRating': '4.8',
-      'numberOfRating': '22'
-    },
-    {
-      'id': 8,
-      'title': 'Console Development Basics with Unity',
-      'image': 'assets/new_course/new_course_3.png',
-      'category': 'Demo Category',
-      'price': '64',
-      'courseRating': '4.0',
-      'numberOfRating': '49'
-    }
-  ];
+  var categoryItemList = new List<CategoryItemData>();
+  void initState() {
+    getCategoryItems();
+    super.initState();
+  }
+
+  dispose() {
+    super.dispose();
+  }
+
+  // final categoryItemList = [
+  //   {
+  //     'id': 1,
+  //     'title': 'Design Instruments for Communication',
+  //     'image': 'assets/new_course/new_course_1.png',
+  //     'category': 'Demo Category',
+  //     'price': '59',
+  //     'courseRating': '4.0',
+  //     'numberOfRating': '5'
+  //   },
+  //   {
+  //     'id': 2,
+  //     'title': 'Weight Training Courses with Any Di',
+  //     'image': 'assets/new_course/new_course_2.png',
+  //     'category': 'Demo Category',
+  //     'price': '64',
+  //     'courseRating': '4.5',
+  //     'numberOfRating': '6'
+  //   },
+  //   {
+  //     'id': 3,
+  //     'title': 'How to be a DJ? Make Electronic Music',
+  //     'image': 'assets/new_course/new_course_4.png',
+  //     'category': 'Demo Category',
+  //     'price': '59',
+  //     'courseRating': '4.8',
+  //     'numberOfRating': '8'
+  //   },
+  //   {
+  //     'id': 4,
+  //     'title': 'Console Development Basics with Unity',
+  //     'image': 'assets/new_course/new_course_3.png',
+  //     'category': 'Demo Category',
+  //     'price': '64',
+  //     'courseRating': '4.0',
+  //     'numberOfRating': '15'
+  //   },
+  //   {
+  //     'id': 5,
+  //     'title': 'Design Instruments for Communication',
+  //     'image': 'assets/new_course/new_course_1.png',
+  //     'category': 'Demo Category',
+  //     'price': '59',
+  //     'courseRating': '4.0',
+  //     'numberOfRating': '3'
+  //   },
+  //   {
+  //     'id': 6,
+  //     'title': 'Weight Training Courses with Any Di',
+  //     'image': 'assets/new_course/new_course_2.png',
+  //     'category': 'Demo Category',
+  //     'price': '64',
+  //     'courseRating': '4.5',
+  //     'numberOfRating': '2'
+  //   },
+  //   {
+  //     'id': 7,
+  //     'title': 'How to be a DJ? Make Electronic Music',
+  //     'image': 'assets/new_course/new_course_4.png',
+  //     'category': 'Demo Category',
+  //     'price': '59',
+  //     'courseRating': '4.8',
+  //     'numberOfRating': '22'
+  //   },
+  //   {
+  //     'id': 8,
+  //     'title': 'Console Development Basics with Unity',
+  //     'image': 'assets/new_course/new_course_3.png',
+  //     'category': 'Demo Category',
+  //     'price': '64',
+  //     'courseRating': '4.0',
+  //     'numberOfRating': '49'
+  //   }
+  // ];
   @override
   Widget build(BuildContext context) {
     String categoryName = widget.categoryName;
@@ -125,13 +141,13 @@ class _CategoryState extends State<Category> {
                   MaterialPageRoute(
                       builder: (context) => CoursePage(
                             courseData: PassDataToCoursePage(
-                              item['id'],
-                              item['image'],
-                              item['title'],
-                              item['category'],
-                              item['courseRating'],
-                              item['numberOfRating'],
-                              item['price'],
+                              item.id,
+                              item.thumbnail,
+                              item.title,
+                              widget.categoryName,
+                              item.courseRating.toString(),
+                              item.noOfRating.toString(),
+                              item.price,
                             ),
                           )));
             },
@@ -163,7 +179,7 @@ class _CategoryState extends State<Category> {
                     height: 100.0,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage(item['image']),
+                        image: NetworkImage(item.thumbnail),
                         fit: BoxFit.cover,
                       ),
                       borderRadius: BorderRadius.circular(20.0),
@@ -178,7 +194,7 @@ class _CategoryState extends State<Category> {
                           padding: const EdgeInsets.only(
                               top: 8.0, bottom: 4.0, right: 8.0, left: 8.0),
                           child: Text(
-                            item['title'],
+                            item.title,
                             style: TextStyle(
                               fontSize: 16.0,
                               fontFamily: 'Signika Negative',
@@ -191,7 +207,7 @@ class _CategoryState extends State<Category> {
                           padding: const EdgeInsets.only(
                               top: 0.0, right: 8.0, left: 8.0, bottom: 8.0),
                           child: Text(
-                            '\$${item['price']}',
+                            '\u20B9 ${item.price.split("Rp")[1]}',
                             style: TextStyle(
                               fontSize: 18.0,
                               height: 1.6,
@@ -207,7 +223,7 @@ class _CategoryState extends State<Category> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                item['courseRating'],
+                                item.courseRating.toString(),
                                 style: TextStyle(
                                   fontSize: 14.0,
                                   fontFamily: 'Signika Negative',
@@ -231,5 +247,48 @@ class _CategoryState extends State<Category> {
         },
       ),
     );
+  }
+
+  getCategoryItems() async {
+    var url =
+        Uri.parse('$baseUrl/category_wise_course?category_id=${widget.id}');
+    final response = await http.get(url);
+    if (response.statusCode == 200) {
+      setState(() {
+        Iterable list = json.decode(response.body);
+        categoryItemList =
+            list.map((model) => CategoryItemData.fromJson(model)).toList();
+      });
+    }
+  }
+}
+
+class CategoryItemData {
+  final String id;
+  final String title;
+  final String shortDescription;
+  final String thumbnail;
+  final String price;
+  final int courseRating;
+  final int noOfRating;
+
+  CategoryItemData(
+      {this.id,
+      this.title,
+      this.shortDescription,
+      this.thumbnail,
+      this.price,
+      this.courseRating,
+      this.noOfRating});
+
+  factory CategoryItemData.fromJson(Map<String, dynamic> json) {
+    return CategoryItemData(
+        id: json['id'],
+        title: json['title'],
+        shortDescription: json['short_description'],
+        thumbnail: json['thumbnail'],
+        price: json['price'],
+        courseRating: json['rating'],
+        noOfRating: json['number_of_ratings']);
   }
 }

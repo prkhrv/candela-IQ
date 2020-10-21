@@ -1,10 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:learn_pro/dataClass/apiVariables.dart';
 import 'package:learn_pro/dataClass/passDataToCoursePage.dart';
 import 'package:learn_pro/pages/course/course.dart';
+import 'package:http/http.dart' as http;
+
 class PoplularCourse extends StatefulWidget {
   @override
   _PoplularCourseState createState() => _PoplularCourseState();
@@ -87,7 +89,8 @@ class _PoplularCourseState extends State<PoplularCourse> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: <Widget>[
                                   Hero(
-                                    tag: Text('${snapshot.data[index].courseId}'),
+                                    tag: Text(
+                                        '${snapshot.data[index].courseId}'),
                                     child: Container(
                                       height: 150.0,
                                       width: 230.0,
@@ -97,7 +100,7 @@ class _PoplularCourseState extends State<PoplularCourse> {
                                             topRight: Radius.circular(20.0),
                                           ),
                                           image: DecorationImage(
-                                            image: AssetImage(snapshot
+                                            image: NetworkImage(snapshot
                                                 .data[index].courseImage),
                                             fit: BoxFit.cover,
                                           )),
@@ -113,7 +116,7 @@ class _PoplularCourseState extends State<PoplularCourse> {
                                           snapshot.data[index].courseCategory,
                                           style: TextStyle(
                                             color: Colors.grey,
-                                            fontSize: 14.0,
+                                            fontSize: 10.0,
                                           ),
                                         ),
                                         SizedBox(height: 10.0),
@@ -157,7 +160,7 @@ class _PoplularCourseState extends State<PoplularCourse> {
                                         ),
                                         SizedBox(height: 10.0),
                                         Text(
-                                          '\$${snapshot.data[index].coursePrice}',
+                                          '\u20B9 ${snapshot.data[index].coursePrice.split("Rp")[1]}',
                                           style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 18.0,
@@ -185,7 +188,7 @@ class _PoplularCourseState extends State<PoplularCourse> {
 }
 
 class Courses {
-  int courseId;
+  String courseId;
   String courseImage;
   String courseName;
   String courseCategory;
@@ -198,20 +201,21 @@ class Courses {
 }
 
 Future<List<Courses>> loadProducts() async {
-  var jsonString = await rootBundle.loadString('assets/json/popular_course.json');
-  final jsonResponse = json.decode(jsonString);
+  var url = Uri.parse('$baseUrl/top_courses');
+  final jsonString = await http.get(url);
+  Iterable list = json.decode(jsonString.body);
 
   List<Courses> courses = [];
 
-  for (var o in jsonResponse) {
+  for (var o in list) {
     Courses course = Courses(
-        o["courseId"],
-        o["image"],
-        o["courseName"],
-        o["courseCategory"],
-        o["courseRating"],
-        o["courseNumberOfRating"],
-        o["coursePrice"]);
+        o["id"],
+        o["thumbnail"],
+        o["title"],
+        o["short_description"],
+        o["rating"].toString(),
+        o["number_of_ratings"].toString(),
+        o["price"]);
 
     courses.add(course);
   }

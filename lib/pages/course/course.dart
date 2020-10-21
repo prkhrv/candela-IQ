@@ -10,7 +10,7 @@ class CoursePage extends StatefulWidget {
   final PassDataToCoursePage courseData;
   final int lang;
 
-  CoursePage({Key key, @required this.courseData, this.lang}) : super(key: key);
+  CoursePage({Key key, this.courseData, this.lang}) : super(key: key);
   @override
   _CoursePageState createState() => _CoursePageState();
 }
@@ -92,7 +92,7 @@ class _CoursePageState extends State<CoursePage> {
                         alignment: Alignment.bottomCenter,
                         decoration: BoxDecoration(
                           image: DecorationImage(
-                            image: AssetImage(courseData.courseImage),
+                            image: NetworkImage(courseData.courseImage),
                             fit: BoxFit.cover,
                           ),
                           borderRadius: BorderRadius.only(
@@ -185,7 +185,7 @@ class _CoursePageState extends State<CoursePage> {
                                 Column(
                                   children: <Widget>[
                                     Text(
-                                      '\$${courseData.coursePrice}',
+                                      '\u20B9 ${courseData.coursePrice.split("Rp")[1]}',
                                       style: TextStyle(
                                         color: textColor,
                                         fontWeight: FontWeight.w700,

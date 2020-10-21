@@ -138,7 +138,7 @@ class _MainSliderState extends State<MainSlider> {
                 ),
               ),
             ],
-            autoPlay: true,
+            autoPlay: false,
             aspectRatio: 16 / 9,
             autoPlayInterval: const Duration(seconds: 6),
             autoPlayCurve: Curves.fastOutSlowIn,
