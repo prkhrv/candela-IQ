@@ -15,8 +15,6 @@ class _CategoryListState extends State<CategoryList> {
   @override
   void initState() {
     getCategories();
-    print(categoryList);
-
     super.initState();
   }
 
