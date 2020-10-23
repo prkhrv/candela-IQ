@@ -61,7 +61,7 @@ class _SettingsState extends State<Settings> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
                         Text(
-                          'Acoount Settings',
+                          'Account Settings',
                           style: TextStyle(
                               fontSize: 16.0,
                               fontWeight: FontWeight.w700,

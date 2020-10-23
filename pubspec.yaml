@@ -39,6 +39,8 @@ dependencies:
   chewie: ^0.9.10
   video_player: ^0.10.11+2
   custom_switch: 
+  youtube_player_flutter: ^7.0.0+7
+  html: ^0.14.0+4
 
 dev_dependencies:
   flutter_test:

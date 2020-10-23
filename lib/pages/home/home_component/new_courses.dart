@@ -57,14 +57,16 @@ class _NewCourseState extends State<NewCourse> {
                                 MaterialPageRoute(
                                   builder: (context) => CoursePage(
                                     courseData: PassDataToCoursePage(
-                                      snapshot.data[index].courseId.toString(),
-                                      snapshot.data[index].courseImage,
-                                      snapshot.data[index].courseName,
-                                      snapshot.data[index].courseCategory,
-                                      snapshot.data[index].courseRating,
-                                      snapshot.data[index].courseNumberOfRating,
-                                      snapshot.data[index].coursePrice,
-                                    ),
+                                        snapshot.data[index].courseId
+                                            .toString(),
+                                        snapshot.data[index].courseImage,
+                                        snapshot.data[index].courseName,
+                                        snapshot.data[index].courseCategory,
+                                        snapshot.data[index].courseRating,
+                                        snapshot
+                                            .data[index].courseNumberOfRating,
+                                        snapshot.data[index].coursePrice,
+                                        snapshot.data[index].description),
                                   ),
                                 ),
                               );
@@ -194,9 +196,17 @@ class Courses {
   String courseRating;
   String courseNumberOfRating;
   String coursePrice;
+  String description;
 
-  Courses(this.courseId, this.courseImage, this.courseName, this.courseCategory,
-      this.courseRating, this.courseNumberOfRating, this.coursePrice);
+  Courses(
+      this.courseId,
+      this.courseImage,
+      this.courseName,
+      this.courseCategory,
+      this.courseRating,
+      this.courseNumberOfRating,
+      this.coursePrice,
+      this.description);
 }
 
 Future<List<Courses>> loadProducts() async {
@@ -213,7 +223,8 @@ Future<List<Courses>> loadProducts() async {
         o["courseCategory"],
         o["courseRating"],
         o["courseNumberOfRating"],
-        o["coursePrice"]);
+        o["coursePrice"],
+        o["description"]);
 
     courses.add(course);
   }

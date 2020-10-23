@@ -507,7 +507,7 @@ class _AccountSettingsState extends State<AccountSettings> {
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(50.0),
                     image: DecorationImage(
-                      image: AssetImage('assets/user_profile/user_3.jpg'),
+                      image: NetworkImage(userData['profile_pic']),
                       fit: BoxFit.cover,
                     ),
                   ),

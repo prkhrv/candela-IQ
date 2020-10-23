@@ -7,4 +7,5 @@ Map<String, dynamic> userData = {
   'email': '',
   'user_id': '',
   'role': '',
+  'profile_pic':''
 };

@@ -141,14 +141,14 @@ class _CategoryState extends State<Category> {
                   MaterialPageRoute(
                       builder: (context) => CoursePage(
                             courseData: PassDataToCoursePage(
-                              item.id,
-                              item.thumbnail,
-                              item.title,
-                              widget.categoryName,
-                              item.courseRating.toString(),
-                              item.noOfRating.toString(),
-                              item.price,
-                            ),
+                                item.id,
+                                item.thumbnail,
+                                item.title,
+                                widget.categoryName,
+                                item.courseRating.toString(),
+                                item.noOfRating.toString(),
+                                item.price,
+                                item.description),
                           )));
             },
             child: Container(
@@ -207,7 +207,7 @@ class _CategoryState extends State<Category> {
                           padding: const EdgeInsets.only(
                               top: 0.0, right: 8.0, left: 8.0, bottom: 8.0),
                           child: Text(
-                            '\u20B9 ${item.price.split("Rp")[1]}',
+                            '\u20B9 ${item.price}',
                             style: TextStyle(
                               fontSize: 18.0,
                               height: 1.6,
@@ -271,6 +271,7 @@ class CategoryItemData {
   final String price;
   final int courseRating;
   final int noOfRating;
+  final String description;
 
   CategoryItemData(
       {this.id,
@@ -279,7 +280,8 @@ class CategoryItemData {
       this.thumbnail,
       this.price,
       this.courseRating,
-      this.noOfRating});
+      this.noOfRating,
+      this.description});
 
   factory CategoryItemData.fromJson(Map<String, dynamic> json) {
     return CategoryItemData(
@@ -289,6 +291,7 @@ class CategoryItemData {
         thumbnail: json['thumbnail'],
         price: json['price'],
         courseRating: json['rating'],
-        noOfRating: json['number_of_ratings']);
+        noOfRating: json['number_of_ratings'],
+        description: json['description']);
   }
 }

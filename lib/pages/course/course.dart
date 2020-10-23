@@ -185,7 +185,7 @@ class _CoursePageState extends State<CoursePage> {
                                 Column(
                                   children: <Widget>[
                                     Text(
-                                      '\u20B9 ${courseData.coursePrice.split("Rp")[1]}',
+                                      '\u20B9 ${courseData.coursePrice}',
                                       style: TextStyle(
                                         color: textColor,
                                         fontWeight: FontWeight.w700,
@@ -295,7 +295,10 @@ class _CoursePageState extends State<CoursePage> {
           children: [
             ListView(
               children: <Widget>[
-                OverviewCoursePage(),
+                OverviewCoursePage(
+                  courseDescription: courseData.courseDescriprion,
+                  shortDescription: courseData.courseCategory,
+                ),
               ],
             ),
             Lessons(

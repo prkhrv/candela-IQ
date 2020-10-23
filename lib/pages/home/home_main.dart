@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:learn_pro/dataClass/apiVariables.dart';
 import 'package:learn_pro/pages/home/home_component/category_list.dart';
-import 'package:learn_pro/pages/home/home_component/instructors_slide.dart';
+// import 'package:learn_pro/pages/home/home_component/instructors_slide.dart';
 import 'package:learn_pro/pages/home/home_component/main_slider.dart';
 import 'package:learn_pro/pages/home/home_component/new_courses.dart';
 import 'package:learn_pro/pages/home/home_component/popular_courses.dart';
@@ -20,6 +21,19 @@ class _HomeMainState extends State<HomeMain> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             SliverAppBar(
+              leading: innerBoxIsScrolled
+                  ? IconButton(
+                      icon: new Image.asset(
+                        "assets/icon.png",
+                        color: Colors.white,
+                      ),
+                      splashColor: Colors.white,
+                      onPressed: null)
+                  : Icon(
+                      Icons.verified_user,
+                      color: Colors.blue,
+                      size: 0.0,
+                    ),
               expandedHeight: 180,
               pinned: true,
               actions: <Widget>[
@@ -47,13 +61,9 @@ class _HomeMainState extends State<HomeMain> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: <Widget>[
-                      Text(
-                        'Home',
-                        style: TextStyle(
-                          fontFamily: 'Signika Negative',
-                          fontWeight: FontWeight.w700,
-                          fontSize: 25.0,
-                        ),
+                      Image.asset(
+                        "assets/home_logo_white.png",
+                        width: 160.0,
                       ),
                       InkWell(
                         onTap: () {
@@ -68,8 +78,7 @@ class _HomeMainState extends State<HomeMain> {
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(40.0),
                             image: DecorationImage(
-                              image:
-                                  AssetImage('assets/user_profile/user_3.jpg'),
+                              image: NetworkImage(userData['profile_pic']),
                               fit: BoxFit.cover,
                             ),
                           ),

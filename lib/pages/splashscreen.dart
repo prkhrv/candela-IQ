@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:learn_pro/appTheme/appTheme.dart';
 import 'package:learn_pro/dataClass/apiVariables.dart';
@@ -22,12 +24,20 @@ class _SplashScreenState extends State<SplashScreen> {
           getSharedPreferences();
           _isLoggedIn = true;
           print("User is Logged in : $_isLoggedIn");
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => Home()));
+          Timer(
+              Duration(seconds: 2),
+              () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Home()),
+                  ));
         } else {
           print("User is Logged in : $_isLoggedIn");
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => OnBoarding()));
+          Timer(
+              Duration(seconds: 2),
+              () => Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => OnBoarding()),
+                  ));
         }
       });
     });
@@ -46,15 +56,11 @@ class _SplashScreenState extends State<SplashScreen> {
         width: width,
         color: textColor,
         child: Center(
-          child: Text(
-            'Welcome!',
-            style: TextStyle(
-              fontFamily: 'Signika Negative',
-              fontSize: 60.0,
-              color: Colors.white,
-            ),
-          ),
-        ),
+            child: Image.asset(
+          "assets/icon_app.png",
+          color: Colors.white,
+          width: 100.0,
+        )),
       ),
     );
   }
@@ -67,6 +73,7 @@ class _SplashScreenState extends State<SplashScreen> {
     userData['last_name'] = prefs.getString("last_name");
     userData['role'] = prefs.getString("role");
     userData['user_id'] = prefs.getString("user_id");
+    userData['profile_pic'] = prefs.getString("profile_pic");
     setState(() {
       token = prefs.getString("token");
     });

@@ -58,14 +58,15 @@ class _PoplularCourseState extends State<PoplularCourse> {
                                 MaterialPageRoute(
                                   builder: (context) => CoursePage(
                                     courseData: PassDataToCoursePage(
-                                      snapshot.data[index].courseId,
-                                      snapshot.data[index].courseImage,
-                                      snapshot.data[index].courseName,
-                                      snapshot.data[index].courseCategory,
-                                      snapshot.data[index].courseRating,
-                                      snapshot.data[index].courseNumberOfRating,
-                                      snapshot.data[index].coursePrice,
-                                    ),
+                                        snapshot.data[index].courseId,
+                                        snapshot.data[index].courseImage,
+                                        snapshot.data[index].courseName,
+                                        snapshot.data[index].courseCategory,
+                                        snapshot.data[index].courseRating,
+                                        snapshot
+                                            .data[index].courseNumberOfRating,
+                                        snapshot.data[index].coursePrice,
+                                        snapshot.data[index].description),
                                   ),
                                 ),
                               );
@@ -160,7 +161,7 @@ class _PoplularCourseState extends State<PoplularCourse> {
                                         ),
                                         SizedBox(height: 10.0),
                                         Text(
-                                          '\u20B9 ${snapshot.data[index].coursePrice.split("Rp")[1]}',
+                                          '\u20B9 ${snapshot.data[index].coursePrice}',
                                           style: TextStyle(
                                             color: Colors.black,
                                             fontSize: 18.0,
@@ -195,9 +196,17 @@ class Courses {
   String courseRating;
   String courseNumberOfRating;
   String coursePrice;
+  String description;
 
-  Courses(this.courseId, this.courseImage, this.courseName, this.courseCategory,
-      this.courseRating, this.courseNumberOfRating, this.coursePrice);
+  Courses(
+      this.courseId,
+      this.courseImage,
+      this.courseName,
+      this.courseCategory,
+      this.courseRating,
+      this.courseNumberOfRating,
+      this.coursePrice,
+      this.description);
 }
 
 Future<List<Courses>> loadProducts() async {
@@ -215,7 +224,8 @@ Future<List<Courses>> loadProducts() async {
         o["short_description"],
         o["rating"].toString(),
         o["number_of_ratings"].toString(),
-        o["price"]);
+        o["price"],
+        o["description"]);
 
     courses.add(course);
   }
