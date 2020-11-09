@@ -148,7 +148,8 @@ class _CategoryState extends State<Category> {
                                 item.courseRating.toString(),
                                 item.noOfRating.toString(),
                                 item.price,
-                                item.description),
+                                item.description,
+                                item.trailerUrl),
                           )));
             },
             child: Container(
@@ -272,6 +273,7 @@ class CategoryItemData {
   final int courseRating;
   final int noOfRating;
   final String description;
+  final String trailerUrl;
 
   CategoryItemData(
       {this.id,
@@ -281,7 +283,8 @@ class CategoryItemData {
       this.price,
       this.courseRating,
       this.noOfRating,
-      this.description});
+      this.description,
+      this.trailerUrl});
 
   factory CategoryItemData.fromJson(Map<String, dynamic> json) {
     return CategoryItemData(
@@ -292,6 +295,7 @@ class CategoryItemData {
         price: json['price'],
         courseRating: json['rating'],
         noOfRating: json['number_of_ratings'],
-        description: json['description']);
+        description: json['description'],
+        trailerUrl: json['video_url']);
   }
 }

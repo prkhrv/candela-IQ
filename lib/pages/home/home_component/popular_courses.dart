@@ -66,7 +66,8 @@ class _PoplularCourseState extends State<PoplularCourse> {
                                         snapshot
                                             .data[index].courseNumberOfRating,
                                         snapshot.data[index].coursePrice,
-                                        snapshot.data[index].description),
+                                        snapshot.data[index].description,
+                                        snapshot.data[index].trailerUrl),
                                   ),
                                 ),
                               );
@@ -197,6 +198,7 @@ class Courses {
   String courseNumberOfRating;
   String coursePrice;
   String description;
+  String trailerUrl;
 
   Courses(
       this.courseId,
@@ -206,7 +208,8 @@ class Courses {
       this.courseRating,
       this.courseNumberOfRating,
       this.coursePrice,
-      this.description);
+      this.description,
+      this.trailerUrl);
 }
 
 Future<List<Courses>> loadProducts() async {
@@ -225,7 +228,8 @@ Future<List<Courses>> loadProducts() async {
         o["rating"].toString(),
         o["number_of_ratings"].toString(),
         o["price"],
-        o["description"]);
+        o["description"],
+        o["video_url"]);
 
     courses.add(course);
   }

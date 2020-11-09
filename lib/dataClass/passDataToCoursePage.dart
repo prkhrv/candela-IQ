@@ -7,6 +7,7 @@ class PassDataToCoursePage {
   final String courseNumberOfRating;
   final String coursePrice;
   final String courseDescriprion;
+  final String trailerUrl;
 
   PassDataToCoursePage(
       this.courseId,
@@ -16,5 +17,6 @@ class PassDataToCoursePage {
       this.courseRating,
       this.courseNumberOfRating,
       this.coursePrice,
-      this.courseDescriprion);
+      this.courseDescriprion,
+      this.trailerUrl);
 }

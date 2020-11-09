@@ -3,20 +3,19 @@ import 'package:flutter/material.dart';
 class Search extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-
     InkWell tagTile(String tag) {
-        return InkWell(
-          onTap: () {},
-          child: Text(
-            tag,
-            style: TextStyle(
-              fontSize: 18.0,
-              fontFamily: 'Signika Negative',
-              color: Colors.grey,
-            ),
+      return InkWell(
+        onTap: () {},
+        child: Text(
+          tag,
+          style: TextStyle(
+            fontSize: 18.0,
+            fontFamily: 'Signika Negative',
+            color: Colors.grey,
           ),
-        );
-      }
+        ),
+      );
+    }
 
     nestedAppBar() {
       return NestedScrollView(
@@ -68,7 +67,7 @@ class Search extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    'Popular Tags',
+                    'Popular Categories',
                     style: TextStyle(
                       fontSize: 25.0,
                       fontFamily: 'Signika Negative',

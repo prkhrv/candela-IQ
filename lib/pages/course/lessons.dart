@@ -61,7 +61,7 @@ class _LessonsState extends State<Lessons> {
         )));
       } else {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => VideoPlay()));
+            context, MaterialPageRoute(builder: (context) => VideoPlay("")));
       }
     }
 

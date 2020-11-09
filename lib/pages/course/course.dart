@@ -235,7 +235,8 @@ class _CoursePageState extends State<CoursePage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => VideoPlay()));
+                                        builder: (context) =>
+                                            VideoPlay(courseData.trailerUrl)));
                               },
                               child: Container(
                                 width: width,

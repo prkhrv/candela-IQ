@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
 
 class VideoPlay extends StatefulWidget {
+  final String videoUrl;
+
+  VideoPlay(this.videoUrl);
   @override
   _VideoPlayState createState() => _VideoPlayState();
 }
@@ -15,8 +18,7 @@ class _VideoPlayState extends State<VideoPlay> {
     super.initState();
 
     _chewieController = ChewieController(
-        videoPlayerController:
-            VideoPlayerController.asset('assets/video/video.mp4'),
+        videoPlayerController: VideoPlayerController.network(widget.videoUrl),
         aspectRatio: 16 / 9,
         autoInitialize: true,
         autoPlay: true,
@@ -86,14 +88,14 @@ class _VideoPlayState extends State<VideoPlay> {
               ],
             ),
           ),
-          getLessonTile('Lesson 1', 'assets/new_course/new_course_2.png',
-              'locked', width),
-          getLessonTile('Lesson 2', 'assets/new_course/new_course_3.png',
-              'locked', width),
-          getLessonTile('Lesson 3', 'assets/new_course/new_course_4.png',
-              'locked', width),
-          getLessonTile('Lesson 4', 'assets/new_course/new_course_5.png',
-              'locked', width),
+          // getLessonTile('Lesson 1', 'assets/new_course/new_course_2.png',
+          //     'locked', width),
+          // getLessonTile('Lesson 2', 'assets/new_course/new_course_3.png',
+          //     'locked', width),
+          // getLessonTile('Lesson 3', 'assets/new_course/new_course_4.png',
+          //     'locked', width),
+          // getLessonTile('Lesson 4', 'assets/new_course/new_course_5.png',
+          //     'locked', width),
         ],
       ),
     );
